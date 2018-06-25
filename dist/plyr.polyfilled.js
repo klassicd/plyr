@@ -8395,8 +8395,10 @@ typeof navigator === "object" && (function (global, factory) {
 	                return;
 	            }
 
-	            // Toggle state
-	            this.elements.buttons.captions.pressed = active;
+	            // Toggle button if it's enabled
+	            if (this.elements.buttons.captions) {
+	                this.elements.buttons.captions.pressed = active;
+	            }
 
 	            // Add class hook
 	            toggleClass(this.elements.container, activeClass, active);
@@ -9991,9 +9993,11 @@ typeof navigator === "object" && (function (global, factory) {
 	            };
 
 	            // Play/pause toggle
-	            Array.from(this.player.elements.buttons.play).forEach(function (button) {
-	                bind(button, 'click', _this4.player.togglePlay, 'play');
-	            });
+	            if (this.player.elements.buttons.play) {
+	                Array.from(this.player.elements.buttons.play).forEach(function (button) {
+	                    bind(button, 'click', _this4.player.togglePlay, 'play');
+	                });
+	            }
 
 	            // Pause
 	            bind(this.player.elements.buttons.restart, 'click', this.player.restart, 'restart');
@@ -12149,7 +12153,7 @@ typeof navigator === "object" && (function (global, factory) {
 	    }, {
 	        key: 'enabled',
 	        get: function get() {
-	            return this.player.isVideo && this.player.config.ads.enabled && !is$1.empty(this.publisherId);
+	            return this.player.isHTML5 && this.player.isVideo && this.player.config.ads.enabled && !is$1.empty(this.publisherId);
 	        }
 	    }, {
 	        key: 'tagUrl',
